@@ -9,6 +9,12 @@ var debug = require('debug')('ainetwork:server');
 var http = require('http');
 
 /**
+ * Dotenv settings and configuration
+ * @author harrydrippin
+ */
+require('dotenv').config()
+
+/**
  * Get port from environment and store in Express.
  */
 
