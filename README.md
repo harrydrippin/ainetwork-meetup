@@ -1,4 +1,4 @@
-# AINetwork Meetup Backend
+# AINetwork Meetup Service
 
 ## Test
 
