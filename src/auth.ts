@@ -15,15 +15,14 @@ class AuthManager {
         return passport.authenticate("github");
     }
 
-    public static getCallbackLogic(success: string, failure: string) {
+    public static getCallbackLogic(failure="/failure") {
         return passport.authenticate("github", {
-            successRedirect: success,
             failureRedirect: failure
-        })
+        });
     }
 
     public static onAuthSuccess(accessToken: string, refreshToken: string, profile: Profile, cb: (error: any, user?: any) => void) {
-        // TODO(@harrydrippin): Need some logic like sending email
+        // TODO(@harrydrippin): Need some logic like DB transactions and sending email
         console.log("Success to authenticate: ", profile.id);
     }
 }
