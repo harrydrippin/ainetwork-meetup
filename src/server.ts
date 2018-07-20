@@ -2,24 +2,26 @@ import * as createHttpError from 'http-errors';
 import { Server, createServer } from 'http';
 import * as express from 'express';
 import * as path from 'path';
-import cookieParser from 'cookie-parser';
-import logger from 'morgan';
+import * as cookieParser from 'cookie-parser';
+import * as logger from 'morgan';
+import * as passport from 'passport';
+
 import indexRouter from './routes';
+import AuthManager from './auth';
+import * as config from './config';
 
 class BaseServer {
   protected app: express.Express;
   protected server: Server;
-  protected port: string | number;
+  protected port: any;
 
   constructor() {
     this.app = express();
     this.server = createServer(this.app);
-    this.port = process.env.PORT!;
+    this.port = config.PORT;
     this.setMiddlewares();
     this.setViewEngines();
     this.registerRoutes();
-
-    this.listen();
   }
 
   public listen() {
@@ -34,15 +36,27 @@ class BaseServer {
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(cookieParser());
     this.app.use(express.static(path.join(__dirname, 'public')));
+    AuthManager.init();
   }
 
   protected setViewEngines = () => {
-    this.app.set('views', path.join(__dirname, 'views'));
+    this.app.set('views', path.join(__dirname, '../views'));
     this.app.set('view engine', 'ejs');
   }
 
   protected registerRoutes = () => {
-    this.app.use('/', indexRouter);
+    // Intercept oAuth requests
+    this.app.get("/auth/github", passport.authenticate("github"));
+
+    this.app.get("/auth/github/callback", passport.authenticate("github", {
+      failureRedirect: "/failure"
+    }), (req, res) => {
+      // After onAuthSuccess: do some user flow logic
+      // TODO(@harrydrippin): Should discuss the user flow, just redirect to home for now
+      res.redirect("/");
+    });
+
+    this.app.use('*', indexRouter);
 
     this.app.use(function(req, res, next) {
       next(createHttpError(404));

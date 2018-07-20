@@ -5,20 +5,11 @@ import * as config from './config';
 class AuthManager {
     public static init() {
         passport.use(new GitHubStrategy({
-            clientID: config.GITHUB_CLIENT_ID!,
-            clientSecret: config.GITHUB_CLIENT_SECRET!,
-            callbackURL: config.SERVER_HOST! + config.GITHUB_CALLBACK!
+            clientID: config.GITHUB_CLIENT_ID,
+            clientSecret: config.GITHUB_CLIENT_SECRET,
+            callbackURL: config.SERVER_HOST + "/auth/github/callback"
           }, AuthManager.onAuthSuccess
         ));
-    }
-    public static getAuthenticateLogic() {
-        return passport.authenticate("github");
-    }
-
-    public static getCallbackLogic(failure="/failure") {
-        return passport.authenticate("github", {
-            failureRedirect: failure
-        });
     }
 
     public static onAuthSuccess(accessToken: string, refreshToken: string, profile: Profile, cb: (error: any, user?: any) => void) {
