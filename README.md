@@ -4,8 +4,7 @@
 
 ```bash
 yarn install
-yarn dev    # Initiate nodemon, for restarting by save event
-yarn start  # Just start
+yarn start  # Compile and start
 ```
 
 ## Deploy
