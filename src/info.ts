@@ -4,7 +4,7 @@ import * as config from './config';
 import Axios, { AxiosInstance } from 'axios';
 import { GithubUserInfo, GithubRepository, GithubUserInfoAllowed, cleanObject, GithubRepositoryAllowed } from './models/github';
 
-class AuthManager {
+class InfoManager {
     /**
      * Initialize function
      */
@@ -15,7 +15,7 @@ class AuthManager {
             clientSecret: config.GITHUB_CLIENT_SECRET,
             callbackURL: config.SERVER_HOST + "/auth/github/callback",
             scope: ["read:user", "user:email"]
-          }, AuthManager.onAuthSuccess
+          }, InfoManager.onAuthSuccess
         ));
     }
 
@@ -31,7 +31,7 @@ class AuthManager {
         
         const username: string = profile.username!;
 
-        AuthManager.fetchInformations(username, accessToken);
+        InfoManager.triggerJobs(username, accessToken);
 
         // Call cb to Github first for the user flow
         cb(undefined, { githubId: profile.id });
@@ -45,7 +45,12 @@ class AuthManager {
         console.log(error);
     }
 
-    public static fetchInformations(username: string, accessToken: string) {
+    /**
+     * Trigger the crawling jobs
+     * @param username Username of this user
+     * @param accessToken Access token given by Github
+     */
+    public static triggerJobs(username: string, accessToken: string) {
         const instance: AxiosInstance = Axios.create({
             baseURL: 'https://api.github.com',
             headers: {
@@ -54,12 +59,12 @@ class AuthManager {
         });
 
         Promise.all([
-            AuthManager.getUserInformations(instance, username),
-            AuthManager.getAdminableRepositories(instance, username),
-            AuthManager.getStarredRepositories(instance, username)
+            InfoManager.getUserInformations(instance, username),
+            InfoManager.getAdminableRepositories(instance, username),
+            InfoManager.getStarredRepositories(instance, username)
         ]).then((values) => {
             const [userInfo, adminableRepos, starredRepos] = values;
-            console.log("[Auth: %s] Crawlings are done", userInfo.login);
+            console.log("[Auth: %s] Crawling jobs are done", userInfo.login);
 
             const user: GithubUserInfo = cleanObject(userInfo, GithubUserInfoAllowed) as GithubUserInfo;
             const adminable: Array<GithubRepository> = [];
@@ -73,9 +78,11 @@ class AuthManager {
                 starred.push(cleanObject(v, GithubRepositoryAllowed) as GithubRepository);
             });
 
+            console.log(user, adminable, starred);
+
             // TODO(@harrydrippin): Store datas to database here
             // TODO(@harrydrippin): Send invitation email here
-        }).catch(AuthManager.onRequestError);
+        }).catch(InfoManager.onRequestError);
     }
 
     /**
@@ -153,4 +160,4 @@ class AuthManager {
     }
 }
 
-export default AuthManager;
+export default InfoManager;

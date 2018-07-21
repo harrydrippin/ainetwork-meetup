@@ -14,3 +14,5 @@ export const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID!;
 export const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET!;
 export const GITHUB_AUTH = process.env.GITHUB_AUTH!;
 export const GITHUB_CALLBACK = process.env.GITHUB_CALLBACK!;
+
+export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY!;

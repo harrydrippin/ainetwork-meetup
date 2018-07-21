@@ -81,8 +81,8 @@ export interface GithubRepository {
     /** Name of repository */
     name: string;
 
-    /** Commit count on default branch, usually `master` */
-    size: number;
+    /** Count of the stargazers */
+    stargazers_count: number;
 
     /** 
      * Language which has been used mostly on the repo 
@@ -92,7 +92,7 @@ export interface GithubRepository {
 }
 
 export const GithubRepositoryAllowed: Array<string> = [
-    "name", "size", "language"
+    "name", "stargazers_count", "language"
 ]
 
 /**

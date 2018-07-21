@@ -108,13 +108,6 @@ export class Attendant extends Model<Attendant> {
     /** OAuth Related Informations */
 
     /**
-     * oAuth state, which is random string to prevent CSRF attack
-     */
-    @Column
-    @Default('N/A')
-    oAuthState: string;
-
-    /**
      * oAuth access token
      */
     @Column

@@ -17,6 +17,10 @@ DB_NAME="DatabaseName"
 # oAuth
 GITHUB_CLIENT_ID="github_client_id"
 GITHUB_CLIENT_SECRET="github_client_secret"
+
+# SendGrid API Key
+SENDGRID_API_KEY="sendgrid_api_key"
+
 ```
 
 ## Test

@@ -8,7 +8,7 @@ import * as passport from 'passport';
 
 import indexRouter from './routes';
 import authRouter from './routes/auth';
-import AuthManager from './auth';
+import InfoManager from './Info';
 import * as config from './config';
 
 class BaseServer {
@@ -39,7 +39,7 @@ class BaseServer {
     this.app.use(express.static(path.join(__dirname, 'public')));
     this.app.use(passport.initialize());
     this.app.use(passport.session());
-    AuthManager.init();
+    InfoManager.init();
   }
 
   protected setViewEngines = () => {
