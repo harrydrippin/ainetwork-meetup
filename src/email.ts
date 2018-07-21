@@ -30,29 +30,29 @@ class EmailManager {
         });
     }
 
-    public async sendEmail(config: EmailConfig) {
+    public async sendEmail(emailConfig: EmailConfig) {
         this.instance.post("/mail/send", {
             "personalizations": [
               {
                 "to": [
                   {
-                    "email": config.to.address,
-                    "name": config.to.name
+                    "email": emailConfig.to.address,
+                    "name": emailConfig.to.name
                   }
                 ],
-                "subject": config.subject
+                "subject": emailConfig.subject
               }
             ],
             "from": {
-              "email": config.from.address,
-              "name": config.from.name
+              "email": emailConfig.from.address,
+              "name": emailConfig.from.name
             },
             "content": [{
-                "type": config.content.type,
-                "value": config.content.value
+                "type": emailConfig.content.type,
+                "value": emailConfig.content.value
             }]
         }).then((response) => {
-            console.log("[Email: %s] Email was successfully sent.", config.to.name);
+            console.log("[Email: %s] Email was successfully sent.", emailConfig.to.name);
         }).catch((err) => {
             console.error("[Email: %s] Error was occurred while sending an E-mail");
             console.error(err); 
