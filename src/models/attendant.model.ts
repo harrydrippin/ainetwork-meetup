@@ -82,8 +82,8 @@ export class Attendant extends Model<Attendant> {
     repos_admin: string[];
 
     /**
-     * Adminable repos
-     * @desc Made or forked repositories by this user
+     * Starred repos
+     * @desc Starred repositories by this user
      *       JSON string with Repository interface will be stored
      */
     @Column

@@ -59,7 +59,7 @@ class BaseServer {
       res.redirect("/");
     });
 
-    this.app.use('*', indexRouter);
+    this.app.use('/', indexRouter);
 
     this.app.use(function(req, res, next) {
       next(createHttpError(404));
