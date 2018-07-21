@@ -68,6 +68,12 @@ export interface GithubUserInfo {
     following: number;
 }
 
+export const GithubUserInfoAllowed: Array<string> = [
+    "login", "avatar_url", "name", "company", "blog",
+    "location", "email", "hireable","bio", 
+    "public_repos", "followers", "following"
+];
+
 /**
  * Github provided interface for repositories
  */
@@ -83,4 +89,22 @@ export interface GithubRepository {
      * @desc may not provided, or `Unavailable`
      */
     language: string;
+}
+
+export const GithubRepositoryAllowed: Array<string> = [
+    "name", "size", "language"
+]
+
+/**
+ * Filter object by allowance list
+ * @param raw Unclean object
+ * @param allowed Key array for allow
+ */
+export function cleanObject(raw: any, allowed: string[]) {
+    return Object.keys(raw)
+    .filter(key => allowed.indexOf(key) >= 0)
+    .reduce((obj, key) => {
+      obj[key] = raw[key];
+      return obj;
+    }, {});
 }

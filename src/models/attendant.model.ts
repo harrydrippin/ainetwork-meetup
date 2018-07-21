@@ -1,11 +1,13 @@
-import { Table, Model, PrimaryKey, AutoIncrement, Column } from "sequelize-typescript";
+import { Table, Model, PrimaryKey, AutoIncrement, Column, Default } from "sequelize-typescript";
 
 @Table
 export class Attendant extends Model<Attendant> {
-    /**
-     * Primary Informations
-     */
+    /** Primary Informations */
 
+    /**
+     * Primary ID
+     * @desc Not related to Github
+     */
     @PrimaryKey
     @AutoIncrement
     @Column
@@ -21,6 +23,7 @@ export class Attendant extends Model<Attendant> {
      * URL of profile picture
      */
     @Column
+    @Default("N/A")
     avatar_url: string;
 
     /**
@@ -34,6 +37,7 @@ export class Attendant extends Model<Attendant> {
      * Company information
      */
     @Column
+    @Default("N/A")
     company: string;
 
     /**
@@ -41,25 +45,28 @@ export class Attendant extends Model<Attendant> {
      * @desc Given text by user, not standard form
      */
     @Column
+    @Default("N/A")
     location: string;
 
     /**
      * Is this person looking for the job
      */
     @Column
+    @Default(false)
     hireable: boolean;
 
     /**
      * Bio text
      */
     @Column
+    @Default("N/A")
     bio: string;
 
     /**
      * Count of public adminable repositories
      */
     @Column
-    public_repo_count: string;
+    public_repo_count: number;
 
     /**
      * Count of followers
@@ -79,6 +86,7 @@ export class Attendant extends Model<Attendant> {
      *       JSON string array will be stored perhaps sequelize dosen't support JSON type
      */
     @Column
+    @Default('[]')
     repos_admin: string;
 
     /**
@@ -87,28 +95,36 @@ export class Attendant extends Model<Attendant> {
      *       JSON string array will be stored perhaps sequelize dosen't support JSON type
      */
     @Column
+    @Default('[]')
     repos_starred: string;
 
     /**
      * Ethereum wallet code
      */
     @Column
+    @Default('N/A')
     ethWallet: string;
 
-    /**
-     * OAuth Related Informations
-     */
+    /** OAuth Related Informations */
 
-     /**
-      * oAuth state, which is random string to prevent CSRF attack
-      */
+    /**
+     * oAuth state, which is random string to prevent CSRF attack
+     */
     @Column
+    @Default('N/A')
     oAuthState: string;
 
     /**
      * oAuth access token
      */
     @Column
+    @Default('N/A')
     oAuthAccessToken: string;
 
+    /**
+     * Timestamp for the last access
+     */
+    @Column
+    @Default(-1)
+    timestamp: number;
 }

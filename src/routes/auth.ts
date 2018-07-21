@@ -3,15 +3,19 @@ import * as passport from 'passport';
 
 const router = express.Router();
 
-router.get("/auth/github", passport.authenticate("github"));
+/**
+ * Authentication
+ */
+router.get("/github", passport.authenticate("github"));
 
-router.get("/auth/github/callback", passport.authenticate("github", {
+/**
+ * Callback after authentication
+ */
+router.get("/github/callback", passport.authenticate("github", {
     failureRedirect: "/failure",
     session: false // TODO(@harrydrippin): Should discuss using session, may differ what we want
 }), (req, res) => {
-    // After onAuthSuccess: do some user flow logic
-    // TODO(@harrydrippin): Should discuss the user flow, just redirect to home for now
-    res.redirect("/");
+    res.redirect("/signup");
 });
 
 export default router;
