@@ -15,6 +15,7 @@ class AuthManager {
     public static onAuthSuccess(accessToken: string, refreshToken: string, profile: Profile, cb: (error: any, user?: any) => void) {
         // TODO(@harrydrippin): Need some logic like DB transactions and sending email
         console.log("Success to authenticate: ", profile.id);
+        cb(undefined, { githubId: profile.id });
     }
 }
 

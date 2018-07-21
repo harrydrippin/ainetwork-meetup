@@ -36,6 +36,8 @@ class BaseServer {
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(cookieParser());
     this.app.use(express.static(path.join(__dirname, 'public')));
+    this.app.use(passport.initialize());
+    this.app.use(passport.session());
     AuthManager.init();
   }
 
@@ -49,7 +51,8 @@ class BaseServer {
     this.app.get("/auth/github", passport.authenticate("github"));
 
     this.app.get("/auth/github/callback", passport.authenticate("github", {
-      failureRedirect: "/failure"
+      failureRedirect: "/failure",
+      session: false
     }), (req, res) => {
       // After onAuthSuccess: do some user flow logic
       // TODO(@harrydrippin): Should discuss the user flow, just redirect to home for now
