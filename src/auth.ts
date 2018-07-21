@@ -46,7 +46,7 @@ class AuthManager {
             this.getUserInformations(username),
             this.getAdminableRepositories(username),
             this.getStarredRepositories(username)
-        ]).then(() => {
+        ]).then((values) => {
             // TODO(@harrydrippin): Send invitation email here
         }).catch(AuthManager.onRequestError);
 
@@ -68,7 +68,9 @@ class AuthManager {
      */
     public static async getUserInformations(username: string) {
         return new Promise<void>((resolve, reject) => {
+            this.axios.get("/users/" + username).then((response) => {
 
+            });
         });
     }
 

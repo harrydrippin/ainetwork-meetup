@@ -21,7 +21,7 @@ export class Attendant extends Model<Attendant> {
      * URL of profile picture
      */
     @Column
-    profile_pic_url: string;
+    avatar_url: string;
 
     /**
      * Email address
@@ -47,7 +47,7 @@ export class Attendant extends Model<Attendant> {
      * Is this person looking for the job
      */
     @Column
-    is_hiring: boolean;
+    hireable: boolean;
 
     /**
      * Bio text
@@ -76,18 +76,18 @@ export class Attendant extends Model<Attendant> {
     /**
      * Adminable repos
      * @desc Made or forked repositories by this user
-     *       JSON string with Repository interface will be stored
+     *       JSON string array will be stored perhaps sequelize dosen't support JSON type
      */
     @Column
-    repos_admin: string[];
+    repos_admin: string;
 
     /**
      * Starred repos
      * @desc Starred repositories by this user
-     *       JSON string with Repository interface will be stored
+     *       JSON string array will be stored perhaps sequelize dosen't support JSON type
      */
     @Column
-    repos_starred: string[];
+    repos_starred: string;
 
     /**
      * Ethereum wallet code
