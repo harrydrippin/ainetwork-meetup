@@ -7,6 +7,7 @@ import * as logger from 'morgan';
 import * as passport from 'passport';
 
 import indexRouter from './routes';
+import authRouter from './routes/auth';
 import AuthManager from './auth';
 import * as config from './config';
 
@@ -47,17 +48,7 @@ class BaseServer {
   }
 
   protected registerRoutes = () => {
-    // Intercept oAuth requests
-    this.app.get("/auth/github", passport.authenticate("github"));
-
-    this.app.get("/auth/github/callback", passport.authenticate("github", {
-      failureRedirect: "/failure",
-      session: false
-    }), (req, res) => {
-      // After onAuthSuccess: do some user flow logic
-      // TODO(@harrydrippin): Should discuss the user flow, just redirect to home for now
-      res.redirect("/");
-    });
+    this.app.use('/auth', authRouter);
 
     this.app.use('/', indexRouter);
 
