@@ -11,10 +11,20 @@ router.get('/signup', (req, res, next) => {
   const user = req.user;
 
   if (user) {
-    res.render('signup', {
-      username: user.username,
-      email: user.email,
-      profile_pic: user.profile_pic,
+    Attendant.findOne({
+      where: {
+        username: user.username
+      }
+    }).then((attendant) => {
+      if (!attendant || attendant.ethWallet == "N/A") {
+        res.render('signup', {
+          username: user.username,
+          email: user.email,
+          profile_pic: user.profile_pic,
+        });
+      } else {
+        res.redirect('/?return=1');
+      }
     });
   } else {
     res.render('no_user');
@@ -46,6 +56,7 @@ router.get('/api/signup', (req, res, next) => {
       res.redirect("/?signup=1");
     }).catch((err) => {
       console.error("[Signup: %s] Error occurred", user.username);
+      console.error(err);
       res.redirect("/?error=1");
     });
   } else {

@@ -50,8 +50,6 @@ class InfoManager {
         
         const username: string = profile.username!;
 
-        // TODO(@harrydrippin) Add findOne here for filtering existing user
-
         InfoManager.triggerJobs(username, accessToken);
 
         // Pass these information first by asynchronized for user flow
