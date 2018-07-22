@@ -6,7 +6,7 @@ let router = express.Router();
  * When user succeed to authorize
  */
 router.get('/signup', (req, res, next) => {
-  res.render('success');
+  res.render('signup');
 });
 
 /**

@@ -1,4 +1,4 @@
-import { Table, Model, PrimaryKey, AutoIncrement, Column, Default } from "sequelize-typescript";
+import { Table, Model, PrimaryKey, AutoIncrement, Column, Default, CreatedAt, UpdatedAt, DataType } from "sequelize-typescript";
 
 @Table
 export class Attendant extends Model<Attendant> {
@@ -22,8 +22,8 @@ export class Attendant extends Model<Attendant> {
     /**
      * URL of profile picture
      */
-    @Column
     @Default("N/A")
+    @Column
     avatar_url: string;
 
     /**
@@ -36,57 +36,61 @@ export class Attendant extends Model<Attendant> {
     /**
      * Company information
      */
-    @Column
     @Default("N/A")
+    @Column
     company: string;
 
     /**
      * Location information
      * @desc Given text by user, not standard form
      */
-    @Column
     @Default("N/A")
+    @Column
     location: string;
 
     /**
      * Is this person looking for the job
      */
-    @Column
     @Default(false)
+    @Column
     hireable: boolean;
 
     /**
      * Bio text
      */
-    @Column
     @Default("N/A")
+    @Column({
+        type: DataType.TEXT
+    })
     bio: string;
 
     /**
      * Count of public adminable repositories
      */
     @Column
-    public_repo_count: number;
+    public_repos: number;
 
     /**
      * Count of followers
      */
     @Column
-    follower_count: number;
+    followers: number;
 
     /**
      * Count of followers
      */
     @Column
-    following_count: number;
+    following: number;
 
     /**
      * Adminable repos
      * @desc Made or forked repositories by this user
      *       JSON string array will be stored perhaps sequelize dosen't support JSON type
      */
-    @Column
     @Default('[]')
+    @Column({
+        type: DataType.TEXT
+    })
     repos_admin: string;
 
     /**
@@ -94,15 +98,17 @@ export class Attendant extends Model<Attendant> {
      * @desc Starred repositories by this user
      *       JSON string array will be stored perhaps sequelize dosen't support JSON type
      */
-    @Column
     @Default('[]')
+    @Column({
+        type: DataType.TEXT
+    })
     repos_starred: string;
 
     /**
      * Ethereum wallet code
      */
-    @Column
     @Default('N/A')
+    @Column
     ethWallet: string;
 
     /** OAuth Related Informations */
@@ -110,14 +116,16 @@ export class Attendant extends Model<Attendant> {
     /**
      * oAuth access token
      */
-    @Column
     @Default('N/A')
+    @Column
     oAuthAccessToken: string;
 
     /**
-     * Timestamp for the last access
+     * Timestamps
      */
-    @Column
-    @Default(-1)
-    timestamp: number;
+    @CreatedAt
+    creationDate: Date;
+    
+    @UpdatedAt
+    updatedOn: Date;
 }

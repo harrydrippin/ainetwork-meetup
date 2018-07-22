@@ -3,8 +3,12 @@ import {Strategy as GitHubStrategy, Profile}  from 'passport-github';
 import * as config from './config';
 import Axios, { AxiosInstance } from 'axios';
 import { GithubUserInfo, GithubRepository, GithubUserInfoAllowed, cleanObject, GithubRepositoryAllowed } from './models/github';
+import { Attendant } from './models/attendant.model';
+import getDatabase, { Database, SequelizeCustomResult } from './database';
 
 class InfoManager {
+    protected static db: Database = getDatabase();
+
     /**
      * Initialize function
      */
@@ -27,7 +31,7 @@ class InfoManager {
      * @param cb Need to call when authorization process ends
      */
     public static async onAuthSuccess(accessToken: string, refreshToken: string, profile: Profile, cb: (error: any, user?: any) => void) {
-        console.log("[Auth: %s] Success to authenticate", profile.username!);
+        console.log("[Info: %s] Success to authenticate", profile.username!);
         
         const username: string = profile.username!;
 
@@ -63,7 +67,7 @@ class InfoManager {
      */
     public static async onRequestSuccess(values: any[]) {
         const [userInfo, adminableRepos, starredRepos] = values;
-        console.log("[Auth: %s] Crawling jobs are done", userInfo.login);
+        console.log("[Info: %s] Crawling jobs are done", userInfo.login);
 
         const user: GithubUserInfo = cleanObject(userInfo, GithubUserInfoAllowed) as GithubUserInfo;
         const adminable: Array<GithubRepository> = [];
@@ -77,9 +81,24 @@ class InfoManager {
             starred.push(cleanObject(v, GithubRepositoryAllowed) as GithubRepository);
         });
 
-        console.log(user, adminable, starred);
+        // updateOrCreate will be safe for race condition with ethWallet submission
+        InfoManager.db.updateOrCreate(Attendant, {
+            username: user.login
+        }, {
+            ...user,
+            username: user.login,
+            repos_admin: JSON.stringify(adminable),
+            repos_starred: JSON.stringify(starred)
+        }).then((result: SequelizeCustomResult) => {
+            const { item, created } = result;
 
-        // TODO(@harrydrippin): Store datas to database here
+            if (created) {
+                console.log("[Info: %s] Successfully created on DB", item.username);
+            } else {
+                console.log("[Info: %s] Already existing user, just updated", user.login);
+            }
+        });
+
         // TODO(@harrydrippin): Send invitation email here
     }
 
