@@ -5,6 +5,9 @@ export interface GithubUserInfo {
     /** Username */
     login: string;
 
+    /** Github ID */
+    id: string;
+
     /** 
      * URL of profile picture
      * @desc may be empty string 
@@ -69,8 +72,8 @@ export interface GithubUserInfo {
 }
 
 export const GithubUserInfoAllowed: Array<string> = [
-    "login", "avatar_url", "name", "company", "blog",
-    "location", "email", "hireable","bio", 
+    "login", "id", "avatar_url", "name", "company", 
+    "blog", "location", "email", "hireable","bio", 
     "public_repos", "followers", "following"
 ];
 

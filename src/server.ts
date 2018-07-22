@@ -1,6 +1,7 @@
 import * as createHttpError from 'http-errors';
 import { Server, createServer } from 'http';
 import * as express from 'express';
+import * as session from 'express-session';
 import * as path from 'path';
 import * as cookieParser from 'cookie-parser';
 import * as logger from 'morgan';
@@ -37,6 +38,7 @@ class BaseServer {
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(cookieParser());
     this.app.use(express.static(path.join(__dirname, 'public')));
+    this.app.use(session({secret: config.APPLICATION_SECRET})); 
     this.app.use(passport.initialize());
     this.app.use(passport.session());
     InfoManager.init();

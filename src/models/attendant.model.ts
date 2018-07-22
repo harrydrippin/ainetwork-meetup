@@ -14,6 +14,12 @@ export class Attendant extends Model<Attendant> {
     id: number;
 
     /**
+     * Github id numbers
+     */
+    @Column
+    githubId: string;
+
+    /**
      * Github Username
      */
     @Column

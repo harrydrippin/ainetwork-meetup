@@ -6,7 +6,17 @@ let router = express.Router();
  * When user succeed to authorize
  */
 router.get('/signup', (req, res, next) => {
-  res.render('signup');
+  const user = req.user;
+
+  if (user) {
+    res.render('signup', {
+      username: user.username,
+      email: user.email,
+      profile_pic: user.avatar_url,
+    });
+  } else {
+    res.render('no_user');
+  }
 });
 
 /**

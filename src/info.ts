@@ -6,6 +6,10 @@ import { GithubUserInfo, GithubRepository, GithubUserInfoAllowed, cleanObject, G
 import { Attendant } from './models/attendant.model';
 import getDatabase, { Database, SequelizeCustomResult } from './database';
 
+interface PassportGithub {
+    githubId: string;
+}
+
 class InfoManager {
     protected static db: Database = getDatabase();
 
@@ -21,6 +25,20 @@ class InfoManager {
             scope: ["read:user", "user:email"]
           }, InfoManager.onAuthSuccess
         ));
+
+        passport.serializeUser((user: PassportGithub, done) => {
+            done(null, user.githubId);
+        });
+        
+        passport.deserializeUser((id, done) => {
+            Attendant.findOne({
+                where: {
+                    githubId: id
+                }
+            }).then((attendant: Attendant) => {
+                done(null, attendant);
+            }).catch(InfoManager.onRequestError);
+        });
     }
 
     /**
@@ -87,6 +105,7 @@ class InfoManager {
         }, {
             ...user,
             username: user.login,
+            githubId: user.id,
             repos_admin: JSON.stringify(adminable),
             repos_starred: JSON.stringify(starred)
         }).then((result: SequelizeCustomResult) => {

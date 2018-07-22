@@ -4,6 +4,7 @@ dotenv.config();
 
 export const SERVER_HOST = process.env.SERVER_HOST!;
 export const PORT = (process.env.PORT === undefined) ? 8080 : process.env.PORT!;
+export const APPLICATION_SECRET = process.env.APPLICATION_SECRET!;
 
 export const DB_HOST = process.env.DB_HOST!;
 export const DB_USERNAME = process.env.DB_USERNAME!;

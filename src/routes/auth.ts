@@ -13,7 +13,6 @@ router.get("/github", passport.authenticate("github"));
  */
 router.get("/github/callback", passport.authenticate("github", {
     failureRedirect: "/failure",
-    session: false // TODO(@harrydrippin): Should discuss using session, may differ what we want
 }), (req, res) => {
     res.redirect("/signup");
 });
