@@ -9,7 +9,7 @@ import * as passport from 'passport';
 
 import indexRouter from './routes';
 import authRouter from './routes/auth';
-import InfoManager from './Info';
+import InfoManager from './info';
 import * as config from './config';
 
 class BaseServer {

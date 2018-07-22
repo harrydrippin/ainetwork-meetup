@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "tsc && node dist"
+    "start": "tsc && node dist",
+    "serve": "tsc && forever dist"
   },
   "dependencies": {
     "@types/dotenv": "^4.0.3",
@@ -18,6 +19,7 @@
     "ejs": "~2.5.7",
     "express": "~4.16.0",
     "express-session": "^1.15.6",
+    "forever": "^0.15.3",
     "http-errors": "^1.6.3",
     "morgan": "~1.9.0",
     "mysql2": "^1.5.3",
