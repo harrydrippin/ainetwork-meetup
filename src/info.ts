@@ -30,19 +30,15 @@ class InfoManager {
             done(null, user.githubId);
         });
         
-        passport.deserializeUser((id, done) => {
-            Attendant.findOne({
-                where: {
-                    githubId: id
-                }
-            }).then((attendant: Attendant) => {
+        passport.deserializeUser((id: string, done) => {
+            Attendant.findByPrimary(id).then((attendant: Attendant) => {
                 done(null, attendant);
             }).catch(InfoManager.onRequestError);
         });
     }
 
     /**
-     * Calls when authentication succeed first time
+     * Calls when authentication succeed
      * @param accessToken 
      * @param refreshToken 
      * @param profile Profile object from Github
@@ -52,6 +48,8 @@ class InfoManager {
         console.log("[Info: %s] Success to authenticate", profile.username!);
         
         const username: string = profile.username!;
+
+        // TODO(@harrydrippin) Add findOne here for filtering existing user
 
         InfoManager.triggerJobs(username, accessToken);
 
@@ -105,7 +103,7 @@ class InfoManager {
         }, {
             ...user,
             username: user.login,
-            githubId: user.id,
+            id: user.id,
             repos_admin: JSON.stringify(adminable),
             repos_starred: JSON.stringify(starred)
         }).then((result: SequelizeCustomResult) => {

@@ -5,9 +5,46 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>Authorization Success</h1>
-    <p>Github 인증이 성공하였으며, E-mail 전송과 정보 DB 저장 등이 서버에서 시작되었습니다.</p>
-    <img src="<%= profile_pic %>" width="128px" height="128px">
-    <span><%= username %> (<%= email %>)</span>
+    <h1>회원 가입</h1>
+
+    <p>
+      Github 인증이 성공하였으며, E-mail 전송과 정보 DB 저장 등이 서버에서 시작되었습니다. <br>
+      사용자는 이 페이지에서 ETH 지갑 주소를 적어넣는 Form을 보게 됩니다.
+    </p>
+
+    <hr>
+
+    <h2>ETH 지갑 주소 제출하기</h2>
+
+    <img src="<%= profile_pic %>" width="128px" height="128px"><br>
+    사용자 이름 : <b><%= username %></b></span><br>
+    E-mail : <b><%= email %></b></span><br>
+    ETH 지갑 주소 : <input type="text" id="eth-wallet" name="eth-wallet"><br>
+    <button onclick="submitEthWallet()">제출하기</button>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script>
+      /**
+       * 1. 서버에 정의된 흐름을 따라가는 경우
+       * 이 페이지에서는 모든 작업이 끝났으며, 회원 가입이 진행됨에 따라 다른 페이지로 이동해야 할 경우의 로직입니다.
+       * 서버 로직으로 모든 이동이 정의되어 있으므로 권장되는 방법입니다.
+       */
+      function submitEthWallet(e) {
+        location.href = "/api/signup?eth=" + $("#eth-wallet").val();
+      }
+       
+      /**
+       * 2. XHR을 사용해야 할 경우
+       * 이 페이지에서 회원 가입 검사를 백그라운드에서 해야 할 경우의 로직입니다.
+       * 아래 로직은 jQuery가 존재함을 가정하고 쓰여졌습니다.
+       */ 
+      function submitEthWalletWithJquery(e) {
+        $.get("/api/signup?eth=" + $("#eth-wallet").val())
+          .then(function (data, textStatus) {
+            // 모든 경우의 수에서 Redirect가 걸립니다.
+            // 각 Redirect URL에 따라서 처리하시면 됩니다.
+          });
+      }
+    </script>
   </body>
 </html>

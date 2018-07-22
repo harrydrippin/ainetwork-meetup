@@ -1,23 +1,15 @@
-import { Table, Model, PrimaryKey, AutoIncrement, Column, Default, CreatedAt, UpdatedAt, DataType } from "sequelize-typescript";
+import { Table, Model, PrimaryKey, Column, Default, CreatedAt, UpdatedAt, DataType } from "sequelize-typescript";
 
 @Table
 export class Attendant extends Model<Attendant> {
     /** Primary Informations */
 
     /**
-     * Primary ID
-     * @desc Not related to Github
+     * Primary ID, with Github index
      */
     @PrimaryKey
-    @AutoIncrement
     @Column
-    id: number;
-
-    /**
-     * Github id numbers
-     */
-    @Column
-    githubId: string;
+    id: string;
 
     /**
      * Github Username
@@ -116,15 +108,6 @@ export class Attendant extends Model<Attendant> {
     @Default('N/A')
     @Column
     ethWallet: string;
-
-    /** OAuth Related Informations */
-
-    /**
-     * oAuth access token
-     */
-    @Default('N/A')
-    @Column
-    oAuthAccessToken: string;
 
     /**
      * Timestamps
