@@ -38,14 +38,6 @@ class InfoManager {
     }
 
     /**
-     * Error handler for the axios request
-     * @param error
-     */
-    public static async onRequestError(error: any) {
-        console.log(error);
-    }
-
-    /**
      * Trigger the crawling jobs
      * @param username Username of this user
      * @param accessToken Access token given by Github
@@ -62,27 +54,41 @@ class InfoManager {
             InfoManager.getUserInformations(instance, username),
             InfoManager.getAdminableRepositories(instance, username),
             InfoManager.getStarredRepositories(instance, username)
-        ]).then((values) => {
-            const [userInfo, adminableRepos, starredRepos] = values;
-            console.log("[Auth: %s] Crawling jobs are done", userInfo.login);
+        ]).then(InfoManager.onRequestSuccess).catch(InfoManager.onRequestError);
+    }
 
-            const user: GithubUserInfo = cleanObject(userInfo, GithubUserInfoAllowed) as GithubUserInfo;
-            const adminable: Array<GithubRepository> = [];
-            const starred: Array<GithubRepository> = [];
+    /**
+     * When requests are done successfully
+     * @param values return values of Promise
+     */
+    public static async onRequestSuccess(values: any[]) {
+        const [userInfo, adminableRepos, starredRepos] = values;
+        console.log("[Auth: %s] Crawling jobs are done", userInfo.login);
 
-            adminableRepos.forEach((v) => {
-                adminable.push(cleanObject(v, GithubRepositoryAllowed) as GithubRepository);
-            });
+        const user: GithubUserInfo = cleanObject(userInfo, GithubUserInfoAllowed) as GithubUserInfo;
+        const adminable: Array<GithubRepository> = [];
+        const starred: Array<GithubRepository> = [];
 
-            starredRepos.forEach((v) => {
-                starred.push(cleanObject(v, GithubRepositoryAllowed) as GithubRepository);
-            });
+        adminableRepos.forEach((v) => {
+            adminable.push(cleanObject(v, GithubRepositoryAllowed) as GithubRepository);
+        });
 
-            console.log(user, adminable, starred);
+        starredRepos.forEach((v) => {
+            starred.push(cleanObject(v, GithubRepositoryAllowed) as GithubRepository);
+        });
 
-            // TODO(@harrydrippin): Store datas to database here
-            // TODO(@harrydrippin): Send invitation email here
-        }).catch(InfoManager.onRequestError);
+        console.log(user, adminable, starred);
+
+        // TODO(@harrydrippin): Store datas to database here
+        // TODO(@harrydrippin): Send invitation email here
+    }
+
+    /**
+     * Error handler for the axios request
+     * @param error
+     */
+    public static async onRequestError(error: any) {
+        console.log(error);
     }
 
     /**
