@@ -26,6 +26,8 @@
     "passport-oauth": "^1.0.0",
     "reflect-metadata": "^0.1.12",
     "sequelize": "^4.38.0",
-    "sequelize-typescript": "^0.6.5"
+    "sequelize-typescript": "^0.6.5",
+    "tslint": "^5.11.0",
+    "typescript": "^2.9.2"
   }
 }
