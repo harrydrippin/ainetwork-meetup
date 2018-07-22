@@ -21,16 +21,23 @@ GITHUB_CLIENT_SECRET="github_client_secret"
 
 # SendGrid API Key
 SENDGRID_API_KEY="sendgrid_api_key"
-
 ```
 
 ## Test
+
+Yarn is required for the test.
+You can install yarn by simply run `npm install -g yarn`.
 
 ```bash
 yarn install
 yarn start  # Compile and start
 ```
 
-## Deploy
+## Containerize
 
-Will be added later.
+Docker is required for this action.
+
+```bash
+sudo docker build -t ainetwork .
+sudo docker run -d -p 8080:8080 ainetwork
+```
