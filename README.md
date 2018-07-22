@@ -3,6 +3,7 @@
 ## Configuration: `.env`
 
 This project needs `.env` file for the test and deploy. Example file format is below:
+
 ```bash
 # Fundamentals
 SERVER_HOST="http://host.com:8080"
