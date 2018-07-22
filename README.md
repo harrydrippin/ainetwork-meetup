@@ -38,6 +38,6 @@ yarn start  # Compile and start
 Docker is required for this action.
 
 ```bash
-sudo docker build -t ainetwork .
-sudo docker run -d -p 8080:8080 ainetwork
+sudo docker build -t ainetwork-meetup .
+sudo docker run -d -p 8080:8080 ainetwork-meetup
 ```
