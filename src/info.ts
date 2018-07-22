@@ -7,7 +7,10 @@ import { Attendant } from './models/attendant.model';
 import getDatabase, { Database, SequelizeCustomResult } from './database';
 
 interface PassportGithub {
-    githubId: string;
+    id: string;
+    username: string;
+    email: string;
+    profile_pic?: string;
 }
 
 class InfoManager {
@@ -27,13 +30,11 @@ class InfoManager {
         ));
 
         passport.serializeUser((user: PassportGithub, done) => {
-            done(null, user.githubId);
+            done(null, user);
         });
         
-        passport.deserializeUser((id: string, done) => {
-            Attendant.findByPrimary(id).then((attendant: Attendant) => {
-                done(null, attendant);
-            }).catch(InfoManager.onRequestError);
+        passport.deserializeUser((user: string, done) => {
+            done(null, user);
         });
     }
 
@@ -53,8 +54,13 @@ class InfoManager {
 
         InfoManager.triggerJobs(username, accessToken);
 
-        // Call cb to Github first for the user flow
-        cb(undefined, { githubId: profile.id });
+        // Pass these information first by asynchronized for user flow
+        cb(undefined, { 
+            id: profile.id,
+            email: profile.emails![0].value,
+            profile_pic: profile.photos![0].value,
+            username: profile.username
+        });
     }
 
     /**
@@ -98,7 +104,7 @@ class InfoManager {
         });
 
         // updateOrCreate will be safe for race condition with ethWallet submission
-        InfoManager.db.updateOrCreate(Attendant, {
+        await InfoManager.db.updateOrCreate(Attendant, {
             username: user.login
         }, {
             ...user,

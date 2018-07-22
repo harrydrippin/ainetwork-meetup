@@ -16,7 +16,10 @@
 
     <h2>ETH 지갑 주소 제출하기</h2>
 
+    <% if (profile_pic != undefined) { %>
     <img src="<%= profile_pic %>" width="128px" height="128px"><br>
+    <% } %>
+
     사용자 이름 : <b><%= username %></b></span><br>
     E-mail : <b><%= email %></b></span><br>
     ETH 지갑 주소 : <input type="text" id="eth-wallet" name="eth-wallet"><br>

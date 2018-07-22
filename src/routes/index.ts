@@ -14,7 +14,7 @@ router.get('/signup', (req, res, next) => {
     res.render('signup', {
       username: user.username,
       email: user.email,
-      profile_pic: user.avatar_url,
+      profile_pic: user.profile_pic,
     });
   } else {
     res.render('no_user');
