@@ -1,18 +1,50 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>AI Network Meetup</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1>AI Network Meetup</h1>
-    <p>
-      이곳은 사용자가 홈페이지에 처음 들어왔을 때 보일 페이지입니다.<br>
-      만약 사용자가 회원 가입에 성공하여 왔을 경우, Query String으로 'signup=1'이 전달됩니다.<br>
-      만약 이미 회원 가입된 사용자가 다시 왔을 경우, 'return=1'이 전달됩니다.<br>
-      여타 다른 에러로 이곳에 왔을 경우, 'error=1'이 전달됩니다.
-    </p>
-    <a href="/auth/github">Github 인증 요청하기</a> (/auth/github)<br>
-    <a href="/signup">회원 가입 페이지</a> (/signup)
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        var serverTimeDiff = Date.now() - <%= Date.now() %>;
+    </script>
+    <link rel="stylesheet" href="/stylesheets/app.css">
+    <title>AI X Blockchain Techtalk</title>
+</head>
+<body>
+<div class="bg"></div>
+<section class="section section1 fadeIn">
+    <div class="top">
+        <div class="text-left-align">
+            <a class="homepage-link" target="_blank" href="http://www.ainetwork.ai/">
+                <img src="/images/logo.svg"/>
+            </a>
+        </div>
+        <div class="open">
+            참가 신청 오픈 _ 07. 27. 13:00
+        </div>
+        <div class="timer">
+        </div>
+    </div>
+    <div class="middle">
+        <div class="title">
+            AI X Blockchain Techtalk
+            for Developers
+        </div>
+        <hr/>
+        <div class="description">
+            AI와 블록체인에 관심이 많은 개발자들을 위해서 AI NETWORK가 테크톡을 준비하였습니다. 이번 테크톡에서는 "오픈 소스 커뮤니티를 넘어 오픈 리소스 커뮤니티로!"란 주제의 초청 강연.<br/>
+            그리고 AI와 블락체인 기술의 동향과 발전 가능성에 대한 이야기를 나누고자 합니다. 이번 테크톡에 개발자분들의 많은 관심과 참여 부탁드립니다.
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="location">Google Campus Seoul</div>
+        <div class="date">2018. 08. 03. 19:00 ~ 21:00</div>
+        <div class="guest">AI와 블록체인에 관심이 많은 개발자 100명</div>
+    </div>
+</section>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+        crossorigin="anonymous"></script>
+<script src="/javascripts/app.js"></script>
+</body>
 </html>
