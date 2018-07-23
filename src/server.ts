@@ -37,7 +37,7 @@ class BaseServer {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(cookieParser());
-    this.app.use(express.static(path.join(__dirname, 'public')));
+    this.app.use(express.static('public'));
     this.app.use(session({secret: config.APPLICATION_SECRET})); 
     this.app.use(passport.initialize());
     this.app.use(passport.session());
