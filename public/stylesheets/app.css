@@ -91,11 +91,15 @@ hr {
       font-size: 90px;
       font-weight: 800;
       margin-bottom: 20px; }
+      .section1 .middle .title span {
+        font-family: inherit; }
     .section1 .middle .description {
       margin-top: 12px;
-      font-size: 10px;
+      font-size: 14px;
       font-weight: 100;
-      line-height: 2em; }
+      line-height: 2em;
+      word-break: keep-all;
+      word-wrap: break-word; }
   .section1 .bottom {
     position: absolute;
     bottom: 89px;
@@ -114,28 +118,56 @@ hr {
       font-weight: 100;
       font-family: Noto Sans Korean; }
 
-@media (max-width: 1024px) {
+@media (max-height: 730px) {
+  .section1 .middle .title {
+    font-size: 50px; }
+  .section1 .bottom {
+    bottom: 20px; }
+    .section1 .bottom .location {
+      font-size: 20px;
+      margin-bottom: 4px; }
+    .section1 .bottom .date {
+      font-size: 15px; }
+    .section1 .bottom .guest {
+      margin-top: 3px;
+      font-size: 15px; } }
+@media (max-height: 620px), (max-width: 800px) and (max-height: 820px) {
+  .section1 .top .open {
+    font-size: 20px; }
+  .section1 .middle .title {
+    font-size: 50px; }
+  .section1 .middle .description {
+    font-size: 10px; } }
+@media (max-width: 1024px), (max-height: 860px) {
   .section1 {
     padding: 0 70px; }
+    .section1 .top .timer {
+      font-size: 50px;
+      font-weight: 300; }
+    .section1 .top .homepage-link img {
+      width: 55px;
+      margin: 40px 40px 10px; }
     .section1 .middle .title {
       font-size: 70px; } }
-@media (max-width: 769px) {
+@media (max-width: 769px), (max-height: 620px) {
   .section1 {
     padding: 0 50px; }
-    .section1 .top .timer {
-      font-size: 50px; }
-    .section1 .middle .title {
-      font-size: 50px; } }
-@media (max-width: 414px) {
-  .section1 {
-    padding: 0 44px; }
-    .section1 .top .homepage-link img {
-      width: 29px;
-      margin: 27px 26px 9px; }
     .section1 .top .open {
       font-size: 11px; }
     .section1 .top .timer {
       font-size: 30px; }
+    .section1 .middle .title {
+      font-size: 50px; }
+    .section1 .middle .description {
+      font-size: 10px; } }
+@media (max-width: 480px) {
+  .section1 {
+    padding: 0 25px; }
+    .section1 .top .homepage-link img {
+      width: 29px;
+      margin: 27px 26px 9px; }
+    .section1 .middle .title {
+      font-size: 40px; }
     .section1 .bottom {
       bottom: 25px; }
       .section1 .bottom .location {
@@ -146,9 +178,6 @@ hr {
       .section1 .bottom .guest {
         margin-top: 5px;
         font-size: 12px; } }
-@media (max-width: 360px) {
-  .section1 .middle .title {
-    font-size: 40px; } }
 @media (max-width: 320px) {
   .section1 .middle .title {
     font-size: 30px; } }

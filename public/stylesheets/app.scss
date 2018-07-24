@@ -118,12 +118,17 @@ hr {
       font-size: 90px;
       font-weight: 800;
       margin-bottom: 20px;
+      span {
+        font-family: inherit;
+      }
     }
     .description {
       margin-top: 12px;
-      font-size: 10px;
+      font-size: 14px;
       font-weight: 100;
       line-height: 2em;
+      word-break: keep-all;
+      word-wrap: break-word;
     }
   }
   .bottom {
@@ -149,10 +154,62 @@ hr {
   }
 }
 
+@media (max-height: 730px) {
+  .section1 {
+    .middle {
+      .title {
+        font-size: 50px;
+      }
+    }
+    .bottom {
+      bottom: 20px;
+      .location {
+        font-size: 20px;
+        margin-bottom: 4px;
+      }
+      .date {
+        font-size: 15px;
+      }
+      .guest {
+        margin-top: 3px;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+@media (max-height: 620px), (max-width: 800px) and (max-height: 820px) {
+  .section1 {
+    .top {
+      .open {
+        font-size: 20px;
+      }
+    }
+    .middle {
+      .title {
+        font-size: 50px;
+      }
+      .description {
+        font-size: 10px;
+      }
+    }
+  }
+}
+
 // till ipad pro
-@media (max-width: 1024px) {
+@media (max-width: 1024px), (max-height: 860px) {
   .section1 {
     padding: 0 70px;
+    .top {
+      .timer {
+        font-size: 50px;
+        font-weight: 300;
+      }
+      .homepage-link img {
+        width: 55px;
+        margin: 40px 40px 10px;
+      }
+    }
     .middle {
       .title {
         font-size: 70px;
@@ -165,25 +222,31 @@ hr {
 }
 
 // till ipad
-@media (max-width: 769px) {
+@media (max-width: 769px), (max-height: 620px) {
   .section1 {
     padding: 0 50px;
     .top {
+      .open {
+        font-size: 11px;
+      }
       .timer {
-        font-size: 50px;
+        font-size: 30px;
       }
     }
     .middle {
       .title {
         font-size: 50px;
       }
+      .description {
+        font-size: 10px;
+      }
     }
   }
 }
 
-@media (max-width: 414px) {
+@media (max-width: 480px) {
   .section1 {
-    padding: 0 44px;
+    padding: 0 25px;
     .top {
       .homepage-link {
         img {
@@ -191,12 +254,10 @@ hr {
           margin: 27px 26px 9px;
         }
       }
-      .open {
-        font-size: 11px;
-      }
-      .timer {
-        font-size: 30px;
-      }
+    }
+    
+    .middle .title {
+      font-size: 40px;
     }
 
     .bottom {
@@ -213,13 +274,6 @@ hr {
         font-size: 12px;
       }
     }
-  }
-}
-
-// till Galaxy S5
-@media (max-width: 360px) {
-  .section1 .middle .title {
-    font-size: 40px;
   }
 }
 
