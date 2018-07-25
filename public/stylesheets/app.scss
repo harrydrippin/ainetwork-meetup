@@ -154,6 +154,13 @@ hr {
   }
 }
 
+// if not desktop, no line break.
+@media (max-width: 1023px) {
+  br {
+    display: none;
+  }
+}
+
 @media (max-height: 730px) {
   .section1 {
     .middle {
