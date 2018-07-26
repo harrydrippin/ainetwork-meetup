@@ -18,6 +18,18 @@ export class Attendant extends Model<Attendant> {
     username: string;
 
     /**
+     * Name
+     */
+    @Column
+    name: string;
+
+    /**
+     * Phone number
+     */
+    @Column
+    phone: string;
+
+    /**
      * URL of profile picture
      */
     @Default("N/A")
@@ -108,6 +120,13 @@ export class Attendant extends Model<Attendant> {
     @Default('N/A')
     @Column
     ethWallet: string;
+
+    /**
+     * Flag that indicates email sent was done
+     */
+    @Default(false)
+    @Column
+    emailSent: boolean;
 
     /**
      * Timestamps

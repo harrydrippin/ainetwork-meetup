@@ -18,6 +18,10 @@ export class Database {
         dialect: "mysql",
         username: config.DB_USERNAME!,
         password: config.DB_PASSWORD!,
+        define: {
+            charset: 'utf8',
+            collate: 'utf8_general_ci'
+        },
         logging: false
     };
 
