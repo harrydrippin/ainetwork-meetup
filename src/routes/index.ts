@@ -26,8 +26,7 @@ router.get('/signup', (req, res, next) => {
         res.render('signup', {
           profile_pic: user.profile_pic,
           username: user.username,
-          email: user.email,
-          name: user.name
+          email: user.email
         });
       } else {
         res.redirect('/?return=1');
