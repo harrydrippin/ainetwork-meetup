@@ -32,4 +32,10 @@
     }
 
     window.setInterval(calculateRemainTime, 33);
+
+    $('#github-login-btn').on('click', function () {
+
+
+    });
+
 })();
