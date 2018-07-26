@@ -15,6 +15,7 @@ interface PassportGithub {
 
 class InfoManager {
     protected static db: Database = getDatabase();
+    protected static limitation: number = 100;
 
     /**
      * Initialize function
@@ -50,14 +51,22 @@ class InfoManager {
         
         const username: string = profile.username!;
 
-        InfoManager.triggerJobs(username, accessToken);
-
-        // Pass these information first by asynchronized for user flow
-        cb(undefined, { 
+        let userObject = { 
             id: profile.id,
             email: profile.emails![0].value,
             profile_pic: profile.photos![0].value,
             username: profile.username
+        };
+        
+        Attendant.findAndCountAll().then((result) => {
+            if (result.count + 1 > InfoManager.limitation) {
+                userObject["overLimit"] = true;
+            } else {
+                userObject["overLimit"] = false;
+                InfoManager.triggerJobs(username, accessToken);
+            }
+
+            cb(undefined, userObject);
         });
     }
 
@@ -108,6 +117,8 @@ class InfoManager {
             ...user,
             username: user.login,
             id: user.id,
+            name: user.name,
+            email: user.email,
             repos_admin: JSON.stringify(adminable),
             repos_starred: JSON.stringify(starred)
         }).then((result: SequelizeCustomResult) => {
@@ -119,8 +130,6 @@ class InfoManager {
                 console.log("[Info: %s] Already existing user, just updated", user.login);
             }
         });
-
-        // TODO(@harrydrippin): Send invitation email here
     }
 
     /**

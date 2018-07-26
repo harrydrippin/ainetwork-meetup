@@ -21,32 +21,35 @@
     <% } %>
 
     사용자 이름 : <b><%= username %></b></span><br>
-    E-mail : <b><%= email %></b></span><br>
+    이름 : <input type="text" id="name" name="name"><br>
+    E-mail : <input type="text" id="email" name="email"><br>
+    휴대폰 번호 : <input type="text" id="phone" name="phone"><br>
     ETH 지갑 주소 : <input type="text" id="eth-wallet" name="eth-wallet"><br>
     <button onclick="submitEthWallet()">제출하기</button>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script>
       /**
+       * 서버에서 EJS 태그로 기설정된 email을 내려줍니다.
+       * 해당 내용이 존재한다면 input 태그에 내용을 넣어주는 내용의 스크립트가 필요합니다.
+       * 일정 상의 이슈로 인해 별도의 Validation은 넣지 않았으며,
+       * 브라우저 단에서의 검증 정도로만 마무리 해주시면 될 것 같습니다.
+       * ex) 빈칸 검사, input[type=email] 검사 등
+       */
+      const email = "<%= email %>";
+      $("#email").val(email);
+
+      /**
        * 1. 서버에 정의된 흐름을 따라가는 경우
        * 이 페이지에서는 모든 작업이 끝났으며, 회원 가입이 진행됨에 따라 다른 페이지로 이동해야 할 경우의 로직입니다.
        * 서버 로직으로 모든 이동이 정의되어 있으므로 권장되는 방법입니다.
        */
       function submitEthWallet(e) {
-        location.href = "/api/signup?eth=" + $("#eth-wallet").val();
-      }
-       
-      /**
-       * 2. XHR을 사용해야 할 경우
-       * 이 페이지에서 회원 가입 검사를 백그라운드에서 해야 할 경우의 로직입니다.
-       * 아래 로직은 jQuery가 존재함을 가정하고 쓰여졌습니다.
-       */ 
-      function submitEthWalletWithJquery(e) {
-        $.get("/api/signup?eth=" + $("#eth-wallet").val())
-          .then(function (data, textStatus) {
-            // 모든 경우의 수에서 Redirect가 걸립니다.
-            // 각 Redirect URL에 따라서 처리하시면 됩니다.
-          });
+        location.href = "/api/signup"
+          + "?eth=" + $("#eth-wallet").val()
+          + "&name=" + $("#name").val()
+          + "&phone=" + $("#phone").val()
+          + "&email=" + $("#email").val();
       }
     </script>
   </body>

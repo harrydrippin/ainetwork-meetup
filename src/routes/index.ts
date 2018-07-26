@@ -11,16 +11,23 @@ router.get('/signup', (req, res, next) => {
   const user = req.user;
 
   if (user) {
+    console.log("OVERLIMIT", user.overLimit);
+    if (user.overLimit) {
+      res.render('limitation');
+      return;
+    }
+
     Attendant.findOne({
       where: {
         username: user.username
       }
     }).then((attendant) => {
-      if (!attendant || attendant.ethWallet == "N/A") {
+      if (!attendant || attendant.ethWallet == "N/A" || attendant.email == null) {
         res.render('signup', {
+          profile_pic: user.profile_pic,
           username: user.username,
           email: user.email,
-          profile_pic: user.profile_pic,
+          name: user.name
         });
       } else {
         res.redirect('/?return=1');
@@ -37,13 +44,24 @@ router.get('/signup', (req, res, next) => {
 router.get('/api/signup', (req, res, next) => {
   const user = req.user;
   const eth = req.query.eth;
+  const name = req.query.name;
+  const email = req.query.email;
+  const phone = req.query.phone;
 
-  if (user && eth) {
+  if (user && eth && name && email && phone) {
+    if (user.overLimit) {
+      res.redirect("/signup");
+      return;
+    }
+
     // updateOrCreate will be safe for race condition with crawler db transaction
     getDatabase().updateOrCreate(Attendant, {
         username: user.username
     }, {
-        ethWallet: eth
+        ethWallet: eth,
+        name: name,
+        email: email,
+        phone: phone
     }).then((result: SequelizeCustomResult) => {
       const { item, created } = result;
 
@@ -52,6 +70,8 @@ router.get('/api/signup', (req, res, next) => {
       } else {
         console.log("[Signup: %s] Already existing user, just updated", user.username);
       }
+
+      // TODO(@harrydrippin): send email and mark to database
 
       res.redirect("/?signup=1");
     }).catch((err) => {
