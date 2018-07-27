@@ -1,13 +1,16 @@
 (function () {
     function initIndexPage() {
-        var openTime = new Date(2018, 7, 3, 19);
+        var openTime = new Date(2018, 1, 3, 19);
         var secOfMinute = 60;
         var secOfHour = 60 * secOfMinute;
         var secOfDay = 24 * secOfHour;
 
         Number.prototype.twoDigit = function () {
             var integerNum = Math.floor(this);
-            return integerNum > 9 ? integerNum.toString() : "0" + integerNum.toString();
+            return Math.abs(integerNum) > 9 ? integerNum.toString() :
+                (
+                    (integerNum < 0 ? "-" : "") + "0" + (Math.abs(integerNum))
+                );
         };
 
         function getRemainTimeText() {
@@ -20,7 +23,7 @@
             remainSec %= secOfHour;
             remainMinutes = Math.floor(remainSec / secOfMinute);
             remainSec %= secOfMinute;
-            return ("D - " + remainDays.twoDigit() + ":" + remainHours.twoDigit() + ":" + remainMinutes.twoDigit() + ":" + remainSec.twoDigit());
+            return ("D " + remainDays.twoDigit() + ":" + remainHours.twoDigit() + ":" + remainMinutes.twoDigit() + ":" + remainSec.twoDigit());
         }
 
         var timerElement = $('.section1 .timer');
@@ -34,16 +37,20 @@
 
         window.setInterval(calculateRemainTime, 33);
 
-        $('.appbar a.menu').click(function (event) {
+        $('a.menu').click(function (event) {
             event.preventDefault();
-            console.log($($(this).attr('href')).offset().top + $('.appbar').offset().top);
+            $('#hamburger-menu').removeClass('open');
             $('html, body').animate({
                 scrollTop: $($(this).attr('href')).offset().top - $('.appbar').height()
             }, 200);
         });
+
+        $('#hamburger').click(function () {
+            $('#hamburger-menu').toggleClass('open');
+        });
     }
 
-    initIndexPage();
+
     switch (location.search) {
         case '?return=1':
             alert('신청하신 이력이 있습니다.\n' +
@@ -58,6 +65,8 @@
         case '?error=1':
             alert('밋업 신청 과정에서 오류가 발생했습니다.\n' +
                 'service@ainetwork.ai로 연락 부탁드립니다.');
+        case '?test=1':
+
             break;
     }
     initIndexPage();
