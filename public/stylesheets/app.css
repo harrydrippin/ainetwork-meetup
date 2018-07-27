@@ -171,7 +171,7 @@ hr {
     @media (max-width: 768px) {
       .section1 .top {
         top: 66px; } }
-    @media (max-width: 768px), (max-height: 768px) {
+    @media (max-width: 768px), (max-height: 480px) {
       .section1 .top .github-btn {
         width: 150px;
         margin-bottom: 3px; } }
