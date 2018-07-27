@@ -237,8 +237,25 @@ hr {
     left: 0;
     width: 100%;
     .github-btn {
-      width: 256px;
-      margin-bottom: 9px
+      position: relative;
+      img {
+        width: 256px;
+        margin-bottom: 9px;
+      }
+      &.mobile {
+        display: none;
+        .text {
+          position: absolute;
+          font-family: "Noto Sans Korean";
+          font-size: 8px;
+          font-weight: 500;
+          color: #000;
+          text-align: center;
+          left: 0;
+          top: 5px;
+          width: 100%;
+        }
+      }
     }
 
     @media (max-height: 1000px) {
@@ -256,8 +273,16 @@ hr {
 
     @media(max-width: 768px), (max-height: 480px) {
       .github-btn {
-        width: 150px;
-        margin-bottom: 3px
+        img {
+          width: 150px;
+          margin-bottom: 3px;
+        }
+        &.desktop {
+          display: none;
+        }
+        &.mobile {
+          display: inline-block;
+        }
       }
     }
     .open {

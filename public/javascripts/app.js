@@ -54,9 +54,13 @@
         $.ajax('/template/response.html').done(function (data) {
             var html = $(data);
             html.find('.message').html(message);
-            $('body').append(html);
+            $('body').append(html).css('overflow-y', 'hidden');
             html.find('.return-btn').click(function () {
                 html.remove();
+                if (history && history.replaceState) {
+                    history.replaceState(null, "", "/");
+                }
+                $('body').css('overflow-y', 'auto');
             });
         });
     }

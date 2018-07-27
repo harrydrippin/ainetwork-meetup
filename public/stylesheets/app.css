@@ -189,8 +189,22 @@ hr {
     left: 0;
     width: 100%; }
     .section1 .top .github-btn {
-      width: 256px;
-      margin-bottom: 9px; }
+      position: relative; }
+      .section1 .top .github-btn img {
+        width: 256px;
+        margin-bottom: 9px; }
+      .section1 .top .github-btn.mobile {
+        display: none; }
+        .section1 .top .github-btn.mobile .text {
+          position: absolute;
+          font-family: "Noto Sans Korean";
+          font-size: 8px;
+          font-weight: 500;
+          color: #000;
+          text-align: center;
+          left: 0;
+          top: 5px;
+          width: 100%; }
     @media (max-height: 1000px) {
       .section1 .top {
         top: 120px; } }
@@ -204,9 +218,13 @@ hr {
       .section1 .top {
         top: 66px; } }
     @media (max-width: 768px), (max-height: 480px) {
-      .section1 .top .github-btn {
+      .section1 .top .github-btn img {
         width: 150px;
-        margin-bottom: 3px; } }
+        margin-bottom: 3px; }
+      .section1 .top .github-btn.desktop {
+        display: none; }
+      .section1 .top .github-btn.mobile {
+        display: inline-block; } }
     .section1 .top .open {
       font-size: 20px;
       font-family: Gilroy-ExtraBold; }
