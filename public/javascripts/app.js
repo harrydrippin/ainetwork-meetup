@@ -1,5 +1,5 @@
 (function () {
-    var openTime = new Date(2018, 6, 27, 13);
+    var openTime = new Date(2018, 7, 3, 19);
     var secOfMinute = 60;
     var secOfHour = 60 * secOfMinute;
     var secOfDay = 24 * secOfHour;
@@ -38,4 +38,11 @@
 
     });
 
+    $('.appbar a.menu').click(function (event) {
+        event.preventDefault();
+        console.log($($(this).attr('href')).offset().top + $('.appbar').offset().top);
+        $('html, body').animate({
+            scrollTop: $($(this).attr('href')).offset().top - $('.appbar').height()
+        }, 200);
+    });
 })();

@@ -1,56 +1,106 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Success</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1>회원 가입</h1>
-
-    <p>
-      Github 인증이 성공하였으며, E-mail 전송과 정보 DB 저장 등이 서버에서 시작되었습니다. <br>
-      사용자는 이 페이지에서 ETH 지갑 주소를 적어넣는 Form을 보게 됩니다.
-    </p>
-
-    <hr>
-
-    <h2>ETH 지갑 주소 제출하기</h2>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="AI X Blockchain Techtalk"/>
+    <meta property="og:description" content="AI와 블록체인에 관심이 많은 개발자들을 위해서 AI NETWORK가 테크톡을 준비하였습니다.
+    이번 테크톡에서는 “오픈 소스 커뮤니티를 넘어 오픈 리소스 커뮤니티로!“란 주제의 초청 강연.
+    그리고 AI와 블록체인 기술의 동향과 발전 가능성에 대한 이야기를 나누고자 합니다.
+    이번 테크톡에 개발자분들의 많은 관심과 참여 부탁드립니다."/>
+    <meta property="og:url" content="http://meetup.ainetwork.ai"/>
+    <meta property="og:image" content="http://meetup.ainetwork.ai/images/ogimage.png"/>
+    <link rel="stylesheet" href="/stylesheets/app.css">
+    <title>AI X Blockchain Techtalk 참가 신청</title>
+</head>
+<body style="background: #ffffff;">
+<div id="app" class="signup-page">
+    <img class="signup-logo" src="/images/signup_logo.svg"/>
+    <div class="signup-message">
+        <p>Github 인증이 성공하였습니다.</p>
+        <p>초대장 발송과 AIN 코인 에어드랍을 위해</p>
+        <p>아래 정보를 입력해주세요</p>
+    </div>
 
     <% if (profile_pic != undefined) { %>
-    <img src="<%= profile_pic %>" width="128px" height="128px"><br>
+    <img src="<%= profile_pic %>" class="github-profile"><br>
     <% } %>
 
-    사용자 이름 : <b><%= username %></b></span><br>
-    이름 : <input type="text" id="name" name="name"><br>
-    E-mail : <input type="text" id="email" name="email"><br>
-    휴대폰 번호 : <input type="text" id="phone" name="phone"><br>
-    ETH 지갑 주소 : <input type="text" id="eth-wallet" name="eth-wallet"><br>
-    <button onclick="submitEthWallet()">제출하기</button>
+    <div class="form">
+        <input type="text" value="<%= username %>" disabled>
+        <input type="text" id="name" name="name" placeholder="실명">
+        <input type="text" id="email" name="email" placeholder="e-mail">
+        <input type="text" id="phone" name="phone" placeholder="핸드폰번호">
+        <input type="text" id="eth-wallet" name="eth-wallet" placeholder="ETH 지갑 주소">
+    </div>
+    <div class="wallet-help">
+        <p>이더리움 지갑이 없는 분은 아래 링크를 참고하세요</p>
+        <a href="https://steemit.com/kr/@worud/n4tu3" target="_blank">https://steemit.com/kr/@worud/n4tu3</a>
+    </div>
+    <p class="submit-message">
+        "밋업에 참가하는 개발자 분들에게는 800AIN을 에어드랍으로 드립니다!"
+    </p>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-    <script>
-      /**
-       * 서버에서 EJS 태그로 기설정된 email을 내려줍니다.
-       * 해당 내용이 존재한다면 input 태그에 내용을 넣어주는 내용의 스크립트가 필요합니다.
-       * 일정 상의 이슈로 인해 별도의 Validation은 넣지 않았으며,
-       * 브라우저 단에서의 검증 정도로만 마무리 해주시면 될 것 같습니다.
-       * ex) 빈칸 검사, input[type=email] 검사 등
-       */
-      const email = "<%= email %>";
-      $("#email").val(email);
+    <div class="privacy-policy">
+        <a href="https://docs.google.com/document/d/1NgZQZHAkVWYccpEvJQZh8uChztsiugsmI-x_qu93DSA/edit?usp=sharing" target="_blank">
+            개인정보 활용 방침
+        </a>
+        <input type="checkbox" name="privacy-policy" id="privacy-policy" value="">동의<br>
+    </div>
+    <img src="/images/signup-btn.png"
+         srcset="/images/signup-btn@2x.png 2x,
+             img/signup-btn@3x.png 3x"
+         class="submit-btn desktop" onclick="submitEthWallet()">
+    <img src="/images/signup-mobile-btn.png"
+         srcset="/images/signup-mobile-btn@2x.png 2x,
+             img/signup-mobile-btn@3x.png 3x"
+         class="submit-btn mobile" onclick="submitEthWallet()">
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script>
 
-      /**
-       * 1. 서버에 정의된 흐름을 따라가는 경우
-       * 이 페이지에서는 모든 작업이 끝났으며, 회원 가입이 진행됨에 따라 다른 페이지로 이동해야 할 경우의 로직입니다.
-       * 서버 로직으로 모든 이동이 정의되어 있으므로 권장되는 방법입니다.
-       */
-      function submitEthWallet(e) {
+    $('input:text').on('change keyup paste', function (event) {
+        if (event.target.value) {
+            $(this).addClass('filled');
+        } else {
+            $(this).removeClass('filled');
+        }
+    })
+
+    const email = "<%= email %>";
+    $("#email").val(email);
+
+    function submitEthWallet(e) {
+        const ids = ["name", "email", "phone", "eth-wallet"];
+        const errors = [];
+        for (var i = 0; i < ids.length; i++) {
+            var jInput = $('#' + ids[i]);
+            if (!jInput.val()) {
+                debugger;
+                errors.push(jInput.attr('placeholder'))
+            }
+        }
+
+        if (errors.length > 0) {
+            var message = '빠진 정보를 입력하십시오';
+            for (var i = 0; i < errors.length; i++) {
+                message += '\n- ' + errors[i];
+            }
+            alert(message);
+            return;
+        }
+
+        if(!$('#privacy-policy').is(":checked")){
+            alert('개인정보 처리방침에 동의하셔야 신청할 수 있습니다.');
+            return;
+        }
+
         location.href = "/api/signup"
-          + "?eth=" + $("#eth-wallet").val()
-          + "&name=" + $("#name").val()
-          + "&phone=" + $("#phone").val()
-          + "&email=" + $("#email").val();
-      }
-    </script>
-  </body>
+            + "?eth=" + $("#eth-wallet").val()
+            + "&name=" + $("#name").val()
+            + "&phone=" + $("#phone").val()
+            + "&email=" + $("#email").val();
+    }
+</script>
+</body>
 </html>
