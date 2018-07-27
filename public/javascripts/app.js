@@ -50,24 +50,33 @@
         });
     }
 
+    function openPopup(message) {
+        $.ajax('/template/response.html').done(function (data) {
+            var html = $(data);
+            html.find('.message').html(message);
+            $('body').append(html);
+            html.find('.return-btn').click(function () {
+                html.remove();
+            });
+        });
+    }
+
+    initIndexPage();
 
     switch (location.search) {
         case '?return=1':
-            alert('신청하신 이력이 있습니다.\n' +
-                '입력하신 메일로 초대장을 발송하였으니 확인 부탁드립니다.\n' +
+            openPopup('신청하신 이력이 있습니다.<br/>' +
+                '입력하신 메일로 초대장을 발송하였으니 확인 부탁드립니다.<br/>' +
                 '추가적인 문의가 있으신 경우 service@ainetwork.ai로 연락 부탁드립니다.');
             break;
         case '?signup=1':
-            alert('AI X Blockchain Techtalk for Developers에 참가신청이 완료되었습니다.\n' +
-                '8월 3일 18시 구글 캠퍼스 서울에서 뵙겠습니다.\n' +
+            openPopup('AI X Blockchain Techtalk for Developers에 참가신청이 완료되었습니다.<br/>' +
+                '8월 3일 18시 구글 캠퍼스 서울에서 뵙겠습니다.<br/>' +
                 '감사합니다.');
             break;
         case '?error=1':
-            alert('밋업 신청 과정에서 오류가 발생했습니다.\n' +
+            openPopup('밋업 신청 과정에서 오류가 발생했습니다.<br/>' +
                 'service@ainetwork.ai로 연락 부탁드립니다.');
-        case '?test=1':
-
             break;
     }
-    initIndexPage();
 })();

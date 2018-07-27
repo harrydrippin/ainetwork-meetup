@@ -633,7 +633,6 @@ hr {
   }
 }
 
-
 @media (max-height: 730px) {
   .section1 {
     .middle {
@@ -967,6 +966,94 @@ input {
     .privacy-policy {
       padding: 0 0 5px;
       font-size: 12px;
+    }
+  }
+}
+
+.dim {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  animation: fadeIn 300ms ease-in both;
+  will-change: opacity;
+}
+
+.popup {
+  position: relative;
+  z-index: 5;
+  margin: auto;
+  align-items: center;
+  background-color: $purple;
+  color: #ffffff;
+  padding: 65px 20px 80px;
+  max-width: 1012px;
+  width: 80%;
+  .return-btn {
+    cursor: pointer;
+  }
+  img.logo {
+    width: 83px;
+  }
+  > a {
+    img {
+      width: 358px;
+    }
+    .mobile {
+      display: none;
+    }
+  }
+
+  .message-wrapper {
+    display: flex;
+    min-height: 252px;
+    padding: 20px 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    .message {
+      font-family: "Noto Sans Korean";
+      font-size: 25px;
+      font-weight: 500;
+      margin: auto;
+      align-items: center;
+    }
+  }
+  @media (max-width: 480px), (max-height: 640px) {
+    max-width: 256px;
+    padding: 38px 12px;
+    img.logo {
+      width: 29px;
+    }
+    > a {
+      img {
+        width: 193px;
+      }
+      .mobile {
+        display: inline-block;
+      }
+      .desktop {
+        display: none;
+      }
+    }
+
+    .message-wrapper {
+      min-height: 215px;
+      padding: 20px 0;
+      .message {
+        font-size: 12px;
+      }
+    }
+  }
+
+  @media(max-height: 400px) {
+    .message-wrapper {
+      min-height: 115px;
     }
   }
 }

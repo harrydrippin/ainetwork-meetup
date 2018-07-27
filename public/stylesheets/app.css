@@ -712,4 +712,69 @@ input {
       padding: 0 0 5px;
       font-size: 12px; } }
 
+.dim {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  animation: fadeIn 300ms ease-in both;
+  will-change: opacity; }
+
+.popup {
+  position: relative;
+  z-index: 5;
+  margin: auto;
+  align-items: center;
+  background-color: #4b328e;
+  color: #ffffff;
+  padding: 65px 20px 80px;
+  max-width: 1012px;
+  width: 80%; }
+  .popup .return-btn {
+    cursor: pointer; }
+  .popup img.logo {
+    width: 83px; }
+  .popup > a img {
+    width: 358px; }
+  .popup > a .mobile {
+    display: none; }
+  .popup .message-wrapper {
+    display: flex;
+    min-height: 252px;
+    padding: 20px 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+    .popup .message-wrapper .message {
+      font-family: "Noto Sans Korean";
+      font-size: 25px;
+      font-weight: 500;
+      margin: auto;
+      align-items: center; }
+  @media (max-width: 480px), (max-height: 640px) {
+    .popup {
+      max-width: 256px;
+      padding: 38px 12px; }
+      .popup img.logo {
+        width: 29px; }
+      .popup > a img {
+        width: 193px; }
+      .popup > a .mobile {
+        display: inline-block; }
+      .popup > a .desktop {
+        display: none; }
+      .popup .message-wrapper {
+        min-height: 215px;
+        padding: 20px 0; }
+        .popup .message-wrapper .message {
+          font-size: 12px; } }
+  @media (max-height: 400px) {
+    .popup .message-wrapper {
+      min-height: 115px; } }
+
 /*# sourceMappingURL=app.css.map */
