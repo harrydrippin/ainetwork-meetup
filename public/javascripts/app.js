@@ -1,6 +1,6 @@
 (function () {
     function initIndexPage() {
-        var openTime = new Date(2018, 1, 3, 19);
+        var openTime = new Date(2018, 7, 3, 19);
         var secOfMinute = 60;
         var secOfHour = 60 * secOfMinute;
         var secOfDay = 24 * secOfHour;
