@@ -95,8 +95,9 @@
             return;
         }
 
+        var ethWallet = $("#eth-wallet").val();
         location.href = "/api/signup"
-            + "?eth=" + $("#eth-wallet").val()
+            + "?eth=" + (ethWallet ? ethWallet : 'None')
             + "&name=" + $("#name").val()
             + "&phone=" + $("#phone").val()
             + "&email=" + $("#email").val();
