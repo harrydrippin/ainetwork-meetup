@@ -92,6 +92,22 @@ router.get('/failure', (req, res, next) => {
 });
 
 /**
+ * Dashboard
+ */
+router.get('/dashboard', (req, res, next) => {
+  const secret = req.query.secret;
+  if (secret == "ainjjang") {
+    Attendant.findAll().then((result) => {
+      res.render('dashboard', {
+        attendants: result
+      });
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+
+/**
  * Index page
  */
 router.get('/', (req, res, next) => {
