@@ -93,8 +93,6 @@ hr {
       line-height: 1em; }
       .appbar .menu {
         display: none; }
-      .appbar .hamburger {
-        display: inline-block; }
       .appbar .homepage-link .icon {
         width: 29px;
         height: 26px; } }
