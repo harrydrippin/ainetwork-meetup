@@ -275,7 +275,9 @@ hr {
       font-family: Gilroy-ExtraBold;
       font-size: 90px;
       font-weight: 800;
-      margin-bottom: 20px;
+      hr {
+        display: block;
+      }
       span {
         font-family: inherit;
       }
@@ -631,12 +633,6 @@ hr {
   }
 }
 
-// if not desktop, no line break.
-@media (max-width: 1023px) {
-  br {
-    display: none;
-  }
-}
 
 @media (max-height: 730px) {
   .section1 {

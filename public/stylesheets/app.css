@@ -218,8 +218,9 @@ hr {
     .section1 .middle .title {
       font-family: Gilroy-ExtraBold;
       font-size: 90px;
-      font-weight: 800;
-      margin-bottom: 20px; }
+      font-weight: 800; }
+      .section1 .middle .title hr {
+        display: block; }
       .section1 .middle .title span {
         font-family: inherit; }
     .section1 .middle .description {
@@ -490,9 +491,6 @@ hr {
       .section.footer a img {
         height: 30px; } }
 
-@media (max-width: 1023px) {
-  br {
-    display: none; } }
 @media (max-height: 730px) {
   .section1 .middle .title {
     font-size: 50px; }
