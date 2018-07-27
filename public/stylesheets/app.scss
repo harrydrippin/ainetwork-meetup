@@ -5,6 +5,11 @@
   font-family: 'Gilroy-Light', 'Noto Sans Korean', sans-serif;
 }
 
+:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;
@@ -50,6 +55,11 @@ hr {
   height: 1px;
   border: none;
   background: #ffffff;
+}
+
+#app {
+  position: relative;
+  height: 100%;
 }
 
 .appbar {
@@ -552,7 +562,6 @@ hr {
   .copyright {
     margin-top: -3px;
     display: inline-block;
-    font-family: Gilroy Gilroy-ExtraBold;
     font-weight: 300;
     width: 76%;
     text-align: right;
