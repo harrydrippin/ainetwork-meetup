@@ -510,6 +510,9 @@ hr {
       margin-bottom: 13px; }
     .section.our_code .hashtag {
       font-size: 30px; } }
+  @media (max-width: 480px) {
+    .section.our_code {
+      padding-bottom: 47px; } }
 
 .section.footer {
   position: relative;

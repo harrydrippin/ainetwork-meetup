@@ -665,6 +665,10 @@ hr {
       font-size: 30px;
     }
   }
+
+  @media(max-width: 480px) {
+    padding-bottom: 47px;
+  }
 }
 
 // footer
