@@ -17,13 +17,16 @@
             var now = Date.now() - serverTimeDiff;
             var remainDays, remainHours, remainMinutes, remainSec;
             var remainSec = (openTime.getTime() - now) / 1000;
+            var sign = remainSec > 0 ? '-' : '+';
+            if (remainSec < 0) remainSec = (-remainSec);
+
             remainDays = Math.floor(remainSec / secOfDay);
             remainSec %= secOfDay;
             remainHours = Math.floor(remainSec / secOfHour);
             remainSec %= secOfHour;
             remainMinutes = Math.floor(remainSec / secOfMinute);
             remainSec %= secOfMinute;
-            return ("D " + remainDays.twoDigit() + ":" + remainHours.twoDigit() + ":" + remainMinutes.twoDigit() + ":" + remainSec.twoDigit());
+            return ("D" + sign + " " + remainDays.twoDigit() + ":" + remainHours.twoDigit() + ":" + remainMinutes.twoDigit() + ":" + remainSec.twoDigit());
         }
 
         var timerElement = $('.section1 .timer');
