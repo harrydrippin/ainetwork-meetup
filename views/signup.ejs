@@ -67,15 +67,16 @@
         }
     })
 
-    const email = "<%= email %>";
+    var email = "<%= email %>";
     $("#email").val(email);
 
     function submitEthWallet(e) {
-        const ids = ["name", "email", "phone"];
-        const errors = [];
+        var blankStringChecker = /^\s*$/;
+        var ids = ["name", "email", "phone"];
+        var errors = [];
         for (var i = 0; i < ids.length; i++) {
             var jInput = $('#' + ids[i]);
-            if (!jInput.val()) {
+            if (!jInput.val() || blankStringChecker.test(jInput.val())) {
                 errors.push(jInput.attr('placeholder'))
             }
         }
