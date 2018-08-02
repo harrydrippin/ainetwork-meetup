@@ -15,7 +15,7 @@ interface PassportGithub {
 
 class InfoManager {
     protected static db: Database = getDatabase();
-    protected static limitation: number = 100;
+    protected static limitation: number = 130;
 
     /**
      * Initialize function
